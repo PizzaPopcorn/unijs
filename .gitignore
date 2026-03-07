@@ -7,3 +7,7 @@
 # Visual Studio cache directory
 .vs/
 .vscode/
+
+# UniJS config file
+UniJS_config.asset
+UniJS_config.asset.meta

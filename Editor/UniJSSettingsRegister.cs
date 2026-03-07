@@ -15,7 +15,41 @@ namespace UniJS.Editor
                     var settings = UniJSConfig.GetOrCreateSettings();
                     var so = new SerializedObject(settings);
                     
-                    EditorGUILayout.PropertyField(so.FindProperty("includeCDN"), new GUIContent("Include UniJS CDN in exported html after build"));
+                    var includeCdnProp = so.FindProperty("includeCDN");
+                    var includeControllerProp = so.FindProperty("includeControllerScript");
+                    
+                    EditorGUILayout.BeginHorizontal();
+                    
+                    GUILayout.Space(10); 
+                    
+                    EditorGUILayout.BeginVertical();
+                    
+                    EditorGUIUtility.labelWidth = 260;
+                    
+                    EditorGUILayout.PropertyField(includeCdnProp, new GUIContent("Include UniJS CDN in template"), GUILayout.ExpandWidth(true));
+                    
+                    if (includeCdnProp.boolValue)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.DelayedTextField(so.FindProperty("targetCDNVersion"), new GUIContent("Target CDN version"), GUILayout.ExpandWidth(true));
+                        EditorGUI.indentLevel--;
+                    }
+
+                    EditorGUILayout.Space(10);
+                    
+                    EditorGUILayout.PropertyField(includeControllerProp, new GUIContent("Inject controller script in template"), GUILayout.ExpandWidth(true));
+
+                    if (includeControllerProp.boolValue)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.DelayedTextField(so.FindProperty("controllerScriptName"), new GUIContent("Script name"), GUILayout.ExpandWidth(true));
+                        EditorGUI.indentLevel--;
+                    }
+                    
+                    EditorGUILayout.EndVertical();
+    
+                    GUILayout.Space(10);
+                    EditorGUILayout.EndHorizontal();
 
                     if (so.ApplyModifiedProperties()) AssetDatabase.SaveAssets();
                 },

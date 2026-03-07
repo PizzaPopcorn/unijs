@@ -5,8 +5,15 @@ namespace UniJS.Editor
 {
     public class UniJSConfig : ScriptableObject
     {
-        [Tooltip("Include the CDN in exported html after build.")]
+        [Tooltip("If true, the UniJS library will be injected in the exported index.html using a CDN.")]
         public bool includeCDN = true;
+        [Tooltip("The version of the CDN to use. Leave empty to use the latest version.")]
+        public string targetCDNVersion = "";
+        [Tooltip("If true, an additional script tag will be injected in the exported index.html. A script with that name can be created by the user and used to control the Unity instance.")]
+        public bool includeControllerScript = true;
+        [Tooltip("The name of the script that will be injected, don't include the \".js\" extension. Will use \"unityController\" if empty.")]
+        public string controllerScriptName = "unityController";
+        
         private const string FolderPath = "UniJS/Editor"; //Inside Assets folder
         private const string FileName = "UniJS_config.asset";
         private const string FullPath = "Assets/" + FolderPath + "/" + FileName;
@@ -40,7 +47,7 @@ namespace UniJS.Editor
             var settings = GetOrCreateSettings();
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = settings;
-            //Debug.Log("<color=#4CAF50><b>UniJs:</b> Archivo de configuración listo en " + FullPath + "</color>");
+            Debug.Log("<color=#4CAF50><b>[UniJS]</b> Focused config file at " + FullPath + "</color>");
         }
     }
 }

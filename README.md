@@ -13,13 +13,14 @@ If you are developing a web game that can't run in editor because it depends on 
 3. Add a null object to your starting scene and drag the `JSInstance.cs` behavior to it.
 4. Drag the `JSKeyGameObject` to each object you want to expose directly to JavaScript and set a key to identify it. You will be able to access any object down in its hierarchy from JS.
 5. Recommended: To maximize the fast prototyping potencial, export all of your game content to asset bundles, that way you don't have to build the game each time, just update your bundles.
-6. Build your game in Web / WebGL using the "Build" option, don't use the "Publish and Play" option because we need to be able to add code later.
-7. Once finished, start the `index.html` file and you should see your start scene.
+6. Open the Build window and mark your build as "Development Build" so we don't have to deal with headers and decompression for now.
+7. Build your game in Web / WebGL using the "Build" option, don't use the "Publish and Play" option because we need to be able to add code later. 
+8. Once finished, start the `index.html` file and you should see your start scene.
    - IMPORTANT: If you are already familiar with web builds you'll know that opening the file by double-clicking it won't work. You have to start a local server, some IDEs like Rider let you do that out of the box.
-8. By default, iside the `index.html` a script tag importing a script called `unityController.js` will be added, that script doesn't exist, but it's actually there for you to create it, so create it in the same folder as the `index.html`.
+9. By default, iside the `index.html` a script tag importing a script called `unityController.js` will be added, that script doesn't exist, but it's actually there for you to create it, so create it in the same folder as the `index.html`.
    - Note: In the UniJS settings located in Unity Project Settings, you can choose whether to add that script tag or not. You can also set a different name if you want.
-9. That's it, use that controller script to interact with the API. Some IDEs can fetch the CDN file so your Intellisense can auto-complete the functions.
-10. If you need to embed your game in your web site and don't want to directly use the `index.html` file, go to the *Dynamic Build Instance* section to learn how to achieve it. It's important that your game is embeded directly inside the DOM, iframe won't work because you'll lose the connection with the game code.
+10. That's it, use that controller script to interact with the API. Some IDEs can fetch the CDN file so your Intellisense can auto-complete the functions.
+11. If you need to embed your game in your web site and don't want to directly use the `index.html` file, go to the *Dynamic Build Instance* section to learn how to achieve it. It's important that your game is embeded directly inside the DOM, iframe won't work because you'll lose the connection with the game code.
 
 ## How to use
 For a quick understanding of how to use the library you can follow this guide using the sample scene. If you have already your scene setup you can skip to the step 5.
@@ -32,10 +33,10 @@ For a quick understanding of how to use the library you can follow this guide us
    - The cube and the text have a `JSKeyGameObject` compoment attached with the keys "Cube" and "Text" respectively.
    - The sphere has nothing attached.
    - The UI button doesn't have a `JSKeyGameObject` attached but it has a `JSEventButton` and its OnClick event is invoking a `JSEvent` called "ButtonClicked".
-5. Add the sample scene as the first one in the scenes list for build.
-6. Follow steps 6, 7 and 8 from the *Setup* section if you haven't done already.
+5. Add the sample scene as the first one in the scenes list for build, and turn off the other scenes if any.
+6. Follow steps 6 to 9 from the *Setup* section if you haven't done already.
 7. Test your build, if everything is ok you should see the same image as in step 2.
-8. Now go to your JS script and add this code:
+8. Now go to your JS controller script and add this code:
 ```js
 Unity.onInstanceReady(() => {
     Unity.GameObject.GetKeyGameObject("Text").SetText("UniJS is awesome!");

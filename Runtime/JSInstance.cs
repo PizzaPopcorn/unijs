@@ -181,6 +181,15 @@ namespace UniJS
             OnEvent<RaycastPayload, RaycastHitPayload>("InstanceEvent:Raycast", JSPhysicsStaticEngine.Raycast);
             OnEvent<OverlapSpherePayload, OverlapResultsPayload>("InstanceEvent:OverlapSphere", JSPhysicsStaticEngine.OverlapSphere);
             OnEvent<OverlapBoxPayload, OverlapResultsPayload>("InstanceEvent:OverlapBox", JSPhysicsStaticEngine.OverlapBox);
+
+            // Time Events
+            OnEvent<float>("InstanceEvent:SetTimeScale", JSTimeManager.SetTimeScale);
+            OnEvent<string, float>("InstanceEvent:GetTimeScale", _ => JSTimeManager.GetTimeScale());
+            OnEvent<string, float>("InstanceEvent:GetDeltaTime", _ => JSTimeManager.GetDeltaTime());
+            OnEvent<string, float>("InstanceEvent:GetUnscaledDeltaTime", _ => JSTimeManager.GetUnscaledDeltaTime());
+            OnEvent<string, float>("InstanceEvent:GetFixedDeltaTime", _ => JSTimeManager.GetFixedDeltaTime());
+            OnEvent<string, float>("InstanceEvent:GetRealtimeSinceStartup", _ => JSTimeManager.GetRealtimeSinceStartup());
+            OnEvent<string, float>("InstanceEvent:GetTime", _ => JSTimeManager.GetTime());
         }
         
         private static IEnumerator WaitForRestOfSceneAwake()

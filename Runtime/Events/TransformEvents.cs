@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UniJS.Events
 {
-    [JSExposedClass("transform.translate")]
+    [ExposeJSEvent("transform.translate")]
     public class Event_TransformTranslate : JSEvent<GameObject, Vector3Payload, Vector3Payload>
     {
         protected override Vector3Payload Invoke(GameObject target, Vector3Payload vector)
@@ -14,7 +14,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("transform.rotate")]   
+    [ExposeJSEvent("transform.rotate")]   
     public class Event_TransformRotate : JSEvent<GameObject, Vector3Payload, Vector3Payload>
     {
         protected override Vector3Payload Invoke(GameObject target, Vector3Payload euler)
@@ -25,7 +25,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("transform.setLocalScale")]  
+    [ExposeJSEvent("transform.setLocalScale")]  
     public class Event_TransformSetLocalScale : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload scale)
@@ -34,7 +34,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("transform.setLocalPosition")] 
+    [ExposeJSEvent("transform.setLocalPosition")] 
     public class Event_TransformSetLocalPosition : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload position)

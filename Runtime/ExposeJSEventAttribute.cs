@@ -3,9 +3,9 @@
 namespace UniJS
 {
     [AttributeUsage(AttributeTargets.Class,  Inherited = false)]
-    public class JSExposedClassAttribute : Attribute
+    public class ExposeJSEventAttribute : Attribute
     {
         public string Name { get; }
-        public JSExposedClassAttribute(string name) => Name = name;
+        public ExposeJSEventAttribute(string name) => Name = name;
     }
 }

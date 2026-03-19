@@ -30,16 +30,15 @@ namespace UniJS
         private static void PopulateEventCallbacks()
         {
             _gameObjectEventsByName.Clear();
-            var assembly = typeof(JSEventHub).Assembly;
 
-            var eventTypes = assembly.GetTypes()
-                .Where(t => typeof(IJSEvent<GameObject>).IsAssignableFrom(t) && t.GetCustomAttribute<JSExposedClassAttribute>() != null && !t.IsInterface && !t.IsAbstract);
+            var eventTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
+                .Where(t => typeof(IJSEvent<GameObject>).IsAssignableFrom(t) && t.GetCustomAttribute<ExposeJSEventAttribute>() != null && !t.IsInterface && !t.IsAbstract);
 
             foreach (var type in eventTypes)
             {
                 try
                 {
-                    var eventName = type.GetCustomAttribute<JSExposedClassAttribute>().Name;
+                    var eventName = type.GetCustomAttribute<ExposeJSEventAttribute>().Name;
                     var instance = (IJSEvent<GameObject>)Activator.CreateInstance(type);
                     if (!_gameObjectEventsByName.ContainsKey(eventName))
                     {

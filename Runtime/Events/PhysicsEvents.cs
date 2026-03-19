@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UniJS.Events
 {
-    [JSExposedClass("physics.addForce")]
+    [ExposeJSEvent("physics.addForce")]
     public class Event_PhysicsAddForce : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload force)
@@ -19,7 +19,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.addTorque")]
+    [ExposeJSEvent("physics.addTorque")]
     public class Event_PhysicsAddTorque : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload torque)
@@ -35,7 +35,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setVelocity")]
+    [ExposeJSEvent("physics.setVelocity")]
     public class Event_PhysicsSetVelocity : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload velocity)
@@ -51,7 +51,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.getVelocity")]
+    [ExposeJSEvent("physics.getVelocity")]
     public class Event_PhysicsGetVelocity : JSEvent<GameObject, string, Vector3Payload>
     {
         protected override Vector3Payload Invoke(GameObject target, string _)
@@ -67,7 +67,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setAngularVelocity")]
+    [ExposeJSEvent("physics.setAngularVelocity")]
     public class Event_PhysicsSetAngularVelocity : JSEventVoid<GameObject, Vector3Payload>
     {
         protected override void Invoke(GameObject target, Vector3Payload velocity)
@@ -83,7 +83,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.getAngularVelocity")]
+    [ExposeJSEvent("physics.getAngularVelocity")]
     public class Event_PhysicsGetAngularVelocity : JSEvent<GameObject, string, Vector3Payload>
     {
         protected override Vector3Payload Invoke(GameObject target, string _)
@@ -99,7 +99,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setUseGravity")]
+    [ExposeJSEvent("physics.setUseGravity")]
     public class Event_PhysicsSetUseGravity : JSEventVoid<GameObject, bool>
     {
         protected override void Invoke(GameObject target, bool useGravity)
@@ -115,7 +115,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setIsKinematic")]
+    [ExposeJSEvent("physics.setIsKinematic")]
     public class Event_PhysicsSetIsKinematic : JSEventVoid<GameObject, bool>
     {
         protected override void Invoke(GameObject target, bool isKinematic)
@@ -131,7 +131,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setMass")]
+    [ExposeJSEvent("physics.setMass")]
     public class Event_PhysicsSetMass : JSEventVoid<GameObject, float>
     {
         protected override void Invoke(GameObject target, float mass)
@@ -147,7 +147,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("physics.setLinearDamping")]
+    [ExposeJSEvent("physics.setLinearDamping")]
     public class Event_PhysicsSetDrag : JSEventVoid<GameObject, float>
     {
         protected override void Invoke(GameObject target, float linearDamping)

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UniJS.Payloads;
 
 namespace UniJS.Events
 {
-    [JSExposedClass("gameObject.setActive")]
+    [ExposeJSEvent("gameObject.setActive")]
     public class Event_GameObjectSetActive : JSEventVoid<GameObject, bool> 
     {
         protected override void Invoke(GameObject target, bool state)
@@ -15,7 +13,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.invokeMethod")]
+    [ExposeJSEvent("gameObject.invokeMethod")]
     public class Event_GameObjectInvokeMethod : JSEventVoid<GameObject, MethodInvokePayload> 
     {
         protected override void Invoke(GameObject target, MethodInvokePayload payload)
@@ -45,7 +43,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.getChild")]
+    [ExposeJSEvent("gameObject.getChild")]
     public class Event_GameObjectGetChild : JSEvent<GameObject, int, JSGameObjectData>
     {
         protected override JSGameObjectData Invoke(GameObject target, int childIndex)
@@ -55,7 +53,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.findChild")]
+    [ExposeJSEvent("gameObject.findChild")]
     public class Event_GameObjectFindChild : JSEvent<GameObject, string, JSGameObjectData>
     {
         protected override JSGameObjectData Invoke(GameObject target, string name)
@@ -65,7 +63,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.destroy")]
+    [ExposeJSEvent("gameObject.destroy")]
     public class Event_GameObjectDestroy : JSEventVoid<GameObject, string> 
     {
         protected override void Invoke(GameObject target, string _)
@@ -74,7 +72,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.hasComponent")]
+    [ExposeJSEvent("gameObject.hasComponent")]
     public class Event_GameObjectHasComponent : JSEvent<GameObject, string, bool>
     {
         protected override bool Invoke(GameObject target, string componentName)
@@ -83,7 +81,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.getComponent")]
+    [ExposeJSEvent("gameObject.getComponent")]
     public class Event_GameObjectGetComponent : JSEvent<GameObject, string, object>
     {
         protected override object Invoke(GameObject target, string componentName)
@@ -93,7 +91,7 @@ namespace UniJS.Events
         }
     }
     
-    [JSExposedClass("gameObject.addComponent")]
+    [ExposeJSEvent("gameObject.addComponent")]
     public class Event_GameObjectAddComponent : JSEvent<GameObject, string, object>
     {
         protected override object Invoke(GameObject target, string componentName)

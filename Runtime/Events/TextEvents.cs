@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UniJS.Events
 {
-    [JSExposedClass("text.setText")]
+    [ExposeJSEvent("text.setText")]
     public class Event_SetText : JSEventVoid<GameObject, string>
     {
         protected override void Invoke(GameObject target, string text)
@@ -28,7 +28,7 @@ namespace UniJS.Events
         }
     }
 
-    [JSExposedClass("text.setTextColor")]   
+    [ExposeJSEvent("text.setTextColor")]   
     public class Event_SetTextColor : JSEventVoid<GameObject, string>
     {
         protected override void Invoke(GameObject target, string hexColor)

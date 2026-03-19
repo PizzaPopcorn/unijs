@@ -12,8 +12,7 @@ namespace UniJS.Payloads
 
         static ComponentPayloadConverter()
         {
-            var assembly = typeof(ComponentPayloadConverter).Assembly;
-            var payloadTypes = assembly.GetTypes()
+            var payloadTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
                 .Where(t => t.GetCustomAttribute<ComponentPayloadAttribute>() != null);
 
             foreach (var payloadType in payloadTypes)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UniJS.Payloads;
 
@@ -16,6 +17,8 @@ namespace UniJS.Events
     [ExposeJSEvent("gameObject.invokeMethod")]
     public class Event_GameObjectInvokeMethod : JSEventVoid<GameObject, MethodInvokePayload> 
     {
+        private static readonly Dictionary<string, Type> TypeCache = new();
+
         protected override void Invoke(GameObject target, MethodInvokePayload payload)
         {
             if (string.IsNullOrEmpty(payload.parameterType))
@@ -24,7 +27,15 @@ namespace UniJS.Events
                 return;
             }
 
-            var type = Type.GetType(payload.parameterType);
+            if (!TypeCache.TryGetValue(payload.parameterType, out var type))
+            {
+                type = Type.GetType(payload.parameterType);
+                if (type != null)
+                {
+                    TypeCache[payload.parameterType] = type;
+                }
+            }
+
             if(type == null)
             {
                 //TODO: Check why it's failing to parse class types

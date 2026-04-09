@@ -13,6 +13,8 @@ namespace UniJS
         [Tooltip("Javascript can't register disabled GameObjects. Set this to false and it will disable itself after registration but before its first frame.")]
         [SerializeField] private bool startEnabled = true;
 
+        private Guid eventGuid;
+
         private void Awake()
         {
             if (string.IsNullOrEmpty(JSKey))
@@ -21,7 +23,7 @@ namespace UniJS
             }
             JSInstance.LogInternal($"Registering GameObject [{JSKey}]...");
             JSInstance.RegisterKeyGameObject(JSKey, gameObject);
-            JSInstance.OnEvent<string, ResponsePayload>($"GOEvent:{JSKey}", JSOnEventCallback);
+            eventGuid = JSInstance.OnEvent<string, ResponsePayload>($"GOEvent:{JSKey}", JSOnEventCallback);
             if (!startEnabled)
             {
                 gameObject.SetActive(false);
@@ -47,6 +49,8 @@ namespace UniJS
         private void OnDestroy()
         {
             JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "destroy");
+            JSInstance.OffEvent($"GOEvent:{JSKey}", eventGuid);
+            JSInstance.UnregisterKeyGameObject(JSKey);
         }
 
         private void Update()

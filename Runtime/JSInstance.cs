@@ -48,6 +48,11 @@ namespace UniJS
             Lib_RegisterKeyGameObject(key, JsonUtility.ToJson(data));
         }
 
+        public static void UnregisterKeyGameObject(string key)
+        {
+            _keyGameObjects.Remove(key);
+        }
+
         public static Guid OnEvent<TPayload>(string eventName, Action<TPayload> callback)
         {
             return OnEvent<TPayload, string>(eventName, payload =>
@@ -192,6 +197,15 @@ namespace UniJS
             OnEvent<string, float>("InstanceEvent:GetFixedDeltaTime", _ => JSTimeManager.GetFixedDeltaTime());
             OnEvent<string, float>("InstanceEvent:GetRealtimeSinceStartup", _ => JSTimeManager.GetRealtimeSinceStartup());
             OnEvent<string, float>("InstanceEvent:GetTime", _ => JSTimeManager.GetTime());
+            
+            OnEvent<string, JSGameObjectData>("InstanceEvent:GetKeyGameObject", key =>
+            {
+                if (_keyGameObjects.TryGetValue(key, out var go) && go != null)
+                {
+                    return new JSGameObjectData(go);
+                }
+                return null;
+            });
         }
         
         private static IEnumerator WaitForRestOfSceneAwake()

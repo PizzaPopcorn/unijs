@@ -9,7 +9,7 @@ namespace UniJS.Payloads
         public float x;
         public float y;
         public float z;
-        public float w;
+        public float w = 1f;
 
         public QuaternionPayload() { }
 

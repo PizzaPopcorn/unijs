@@ -12,10 +12,15 @@ namespace UniJS
         
         public TransformPayload transform;
 
+        public bool hasRigidbody;
+        public bool hasAnimator;
+
         public JSGameObjectData(GameObject go)
         {
             name = go.name;
             active = go.activeSelf;
+            hasRigidbody = go.GetComponent<Rigidbody>() != null;
+            hasAnimator = go.GetComponent<Animator>() != null;
             transform = new TransformPayload
             {
                 position = new Vector3Payload

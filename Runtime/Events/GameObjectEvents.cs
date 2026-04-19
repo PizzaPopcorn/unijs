@@ -29,7 +29,7 @@ namespace UniJS.Events
 
             if (!TypeCache.TryGetValue(payload.parameterType, out var type))
             {
-                type = Type.GetType(payload.parameterType);
+                type = ResolveType(payload.parameterType);
                 if (type != null)
                 {
                     TypeCache[payload.parameterType] = type;
@@ -38,8 +38,7 @@ namespace UniJS.Events
 
             if(type == null)
             {
-                //TODO: Check why it's failing to parse class types
-                JSInstance.LogError($"Failed to invoke method '{payload.methodName}' on GameObject '{target.name}' with parameter of type '{payload.parameterType}'. Parameter type failed to parse.");
+                JSInstance.LogError($"Failed to invoke method '{payload.methodName}' on GameObject '{target.name}' with parameter of type '{payload.parameterType}'. Parameter type failed to resolve.");
                 return;
             }
             
@@ -51,6 +50,20 @@ namespace UniJS.Events
             {
                 JSInstance.LogError($"Failed to invoke method '{payload.methodName}' on GameObject '{target.name}' with parameter '{payload.parameterValue}' of type '{payload.parameterType}'. Parameter value failed to parse.");
             }
+        }
+
+        private static Type ResolveType(string typeName)
+        {
+            var type = Type.GetType(typeName);
+            if (type != null) return type;
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                type = assembly.GetType(typeName);
+                if (type != null) return type;
+            }
+
+            return null;
         }
     }
     

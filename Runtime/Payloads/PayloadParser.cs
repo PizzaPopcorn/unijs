@@ -21,6 +21,12 @@ namespace UniJS.Payloads
         {
             try
             {
+                if (string.IsNullOrEmpty(rawPayload) || rawPayload == "null")
+                {
+                    parsedPayload = type.IsValueType ? Activator.CreateInstance(type) : null;
+                    return true;
+                }
+
                 object payload;
 
                 if (type == typeof(string))
@@ -73,7 +79,7 @@ namespace UniJS.Payloads
             catch (Exception ex)
             {
                 JSInstance.LogError($"PayloadParser<{type.Name}> failed to convert payload '{rawPayload}': {ex}");
-                parsedPayload = default;
+                parsedPayload = type.IsValueType ? Activator.CreateInstance(type) : null;
                 return false;
             }
         }

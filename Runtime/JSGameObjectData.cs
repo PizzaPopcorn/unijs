@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UniJS.Payloads;
 
 namespace UniJS
@@ -7,7 +8,7 @@ namespace UniJS
     public class JSGameObjectData
     {
         public string name;
-
+        public string trackingId;
         public bool active;
         
         public TransformPayload transform;
@@ -17,7 +18,35 @@ namespace UniJS
 
         public JSGameObjectData(GameObject go)
         {
+            if (go == null) return;
+            
             name = go.name;
+            
+            // Handle tracking for lifecycle synchronization
+            if (go.TryGetComponent<JSKeyGameObject>(out var keyGo))
+            {
+                trackingId = keyGo.JSKey;
+                if (string.IsNullOrEmpty(trackingId)) trackingId = go.name;
+            }
+            else
+            {
+                // If it doesn't have a JSKey, we ensure it has a LifecycleTracker
+                if (!go.TryGetComponent<JSLifecycleTracker>(out var tracker))
+                {
+                    tracker = go.AddComponent<JSLifecycleTracker>();
+                    // Generate a unique ID for this instance if it doesn't have a JSKey
+                    var id = Guid.NewGuid().ToString();
+                    tracker.Initialize(id);
+                    trackingId = id;
+                    // Register it in JSInstance so JS can find it by this ID if needed
+                    JSInstance.RegisterKeyGameObject(id, go);
+                }
+                else
+                {
+                    trackingId = tracker.TrackingId;
+                }
+            }
+
             active = go.activeSelf;
             hasRigidbody = go.GetComponent<Rigidbody>() != null;
             hasAnimator = go.GetComponent<Animator>() != null;

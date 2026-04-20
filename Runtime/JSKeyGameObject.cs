@@ -2,13 +2,16 @@ using System;
 using UnityEngine;
 using UniJS.InstanceTools;
 using UniJS.Payloads;
+using UnityEngine.Serialization;
 
 namespace UniJS
 {
     public class JSKeyGameObject : MonoBehaviour
     {
+        [FormerlySerializedAs("_jsKey")]
         [Tooltip("The ID used to find this object in Javascript.")] 
-        [SerializeField] private string JSKey;
+        [SerializeField] private string jsKey;
+        public string JSKey => jsKey;
         
         [Tooltip("Javascript can't register disabled GameObjects. Set this to false and it will disable itself after registration but before its first frame.")]
         [SerializeField] private bool startEnabled = true;
@@ -17,70 +20,70 @@ namespace UniJS
 
         private void Awake()
         {
-            if (string.IsNullOrEmpty(JSKey))
+            if (string.IsNullOrEmpty(jsKey))
             {
-                JSKey = name;
+                jsKey = name;
             }
-            JSInstance.LogInternal($"Registering GameObject [{JSKey}]...");
-            JSInstance.RegisterKeyGameObject(JSKey, gameObject);
-            eventGuid = JSInstance.OnEvent<string, ResponsePayload>($"GOEvent:{JSKey}", JSOnEventCallback);
+            JSInstance.LogInternal($"Registering GameObject [{jsKey}]...");
+            JSInstance.RegisterKeyGameObject(jsKey, gameObject);
+            eventGuid = JSInstance.OnEvent<string, ResponsePayload>($"GOEvent:{jsKey}", JSOnEventCallback);
             if (!startEnabled)
             {
                 gameObject.SetActive(false);
             }
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "awake");
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "awake");
         }
 
         private void Start()
         {
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "start");
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "start");
         }
 
         private void OnEnable()
         {
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "enable");
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "enable");
         }
         
         private void OnDisable()
         {
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "disable");
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "disable");
         }
         
         private void OnDestroy()
         {
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "destroy");
-            JSInstance.OffEvent($"GOEvent:{JSKey}", eventGuid);
-            JSInstance.UnregisterKeyGameObject(JSKey);
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "destroy");
+            JSInstance.OffEvent($"GOEvent:{jsKey}", eventGuid);
+            JSInstance.UnregisterKeyGameObject(jsKey);
         }
 
         private void Update()
         {
-            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(JSKey, "update");
+            JSGameObjectEventHandler.SendGameObjectLifeCycleEvent(jsKey, "update");
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            JSInstance.InvokeEvent($"CollisionEnter:{JSKey}", new JSGameObjectData(collision.gameObject));
+            JSInstance.InvokeEvent($"CollisionEnter:{jsKey}", new JSGameObjectData(collision.gameObject));
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            JSInstance.InvokeEvent($"CollisionExit:{JSKey}", new JSGameObjectData(collision.gameObject));
+            JSInstance.InvokeEvent($"CollisionExit:{jsKey}", new JSGameObjectData(collision.gameObject));
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            JSInstance.InvokeEvent($"TriggerEnter:{JSKey}", new JSGameObjectData(other.gameObject));
+            JSInstance.InvokeEvent($"TriggerEnter:{jsKey}", new JSGameObjectData(other.gameObject));
         }
 
         private void OnTriggerExit(Collider other)
         {
-            JSInstance.InvokeEvent($"TriggerExit:{JSKey}", new JSGameObjectData(other.gameObject));
+            JSInstance.InvokeEvent($"TriggerExit:{jsKey}", new JSGameObjectData(other.gameObject));
         }
 
         private ResponsePayload JSOnEventCallback(string payload)
         {
-            JSInstance.LogInternal( $"GameObject [{JSKey}] received event: {payload}");
+            JSInstance.LogInternal( $"GameObject [{jsKey}] received event: {payload}");
             var eventPayload = JsonUtility.FromJson<GameObjectEventPayload>(payload);
             if (eventPayload == null) 
                 return ResponsePayload.Error("Event payload failed to parse. Check if the payload is formatted correctly.");
@@ -90,7 +93,7 @@ namespace UniJS
             
             var target = gameObject;
             if (target == null)
-                return ResponsePayload.Error($"The selected GameObject '{JSKey}' is null.");
+                return ResponsePayload.Error($"The selected GameObject '{jsKey}' is null.");
                 
             if (!string.IsNullOrEmpty(eventPayload.hierarchyPath))
             {

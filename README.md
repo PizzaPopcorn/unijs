@@ -77,7 +77,7 @@ Unity.onEvent("ButtonClicked", () => {
 });
 ```
 16. Notice how when you click the button, the text changes to display "Hello World".
-17. Explore the API in JavaScript to look for other functions. Check the [Documentation](https://github.com/PizzaPopcorn/unijs-lib/tree/main/docs) for more details.
+17. Explore the API in JavaScript to look for other functions. Check the [Library Documentation](https://github.com/PizzaPopcorn/unijs-lib/tree/master/docs) for more details.
 
 ## Dynamic Build Instance
 This section covers how to create a dynamic instance of your Web / WebGL build in case you want to embed your game in your web page. This approach is the preferred one because that way you have total control of your HTML content and don't have to do anything else each time your build is updated. This is also the only way if you are fetching your game from a server and / or if you are using a frontend framework like React or Blazor.

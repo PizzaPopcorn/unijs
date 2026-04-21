@@ -48,7 +48,7 @@ Unity.onInstanceReady(() => {
 10. There's another way of making sure an object exists and it is by using the lifecycle callbacks. Add the following code to your script:
 ```js
 Unity.GameObject.onStart("Cube", cube => {
-    cube.Rotate(0, 45, 0);
+    cube.transform.Rotate(0, 45, 0);
 });
 ```
 
@@ -56,7 +56,7 @@ Unity.GameObject.onStart("Cube", cube => {
 12. Now, the sphere on top of the cube doesn't have a Key, but it is a child of the cube, so we can still access it. Modify the start callback as follows:
 ```js
 Unity.GameObject.onStart("Cube", cube => {
-    cube.Rotate(0, 45, 0);
+    cube.transform.Rotate(0, 45, 0);
     cube.GetChild(0).SetActive(false);
 });
 ```
@@ -64,7 +64,7 @@ Unity.GameObject.onStart("Cube", cube => {
 13. Save and hit refresh and now the sphere is gone. You can go as deep as you want inside the object's hierarchy. The `GetChild` function works both with an index or a child name. Modify the start callback as follows:
 ```js
 Unity.GameObject.onStart("Cube", cube => {
-    cube.Rotate(0, 45, 0);
+    cube.transform.Rotate(0, 45, 0);
     cube.GetChild("Sphere").SetActive(false);
 });
 ```
@@ -77,7 +77,7 @@ Unity.onEvent("ButtonClicked", () => {
 });
 ```
 16. Notice how when you click the button, the text changes to display "Hello World".
-17. Explore the API in JavaScript to look for other functions. Soon I will upload API documentation.
+17. Explore the API in JavaScript to look for other functions. Check the [Documentation](https://github.com/PizzaPopcorn/unijs-lib/tree/main/docs) for more details.
 
 ## Dynamic Build Instance
 This section covers how to create a dynamic instance of your Web / WebGL build in case you want to embed your game in your web page. This approach is the preferred one because that way you have total control of your HTML content and don't have to do anything else each time your build is updated. This is also the only way if you are fetching your game from a server and / or if you are using a frontend framework like React or Blazor.

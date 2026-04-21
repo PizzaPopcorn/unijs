@@ -4,7 +4,7 @@
   "displayName": "UniJS - WebGL Interop",
   "description": "A seamless interop layer to control Unity WebGL builds from the browser's JavaScript context.",
   "unity": "2020.3",
-  "documentationUrl": "https://github.com/PizzaPopcorn/unijs",
+  "documentationUrl": "https://github.com/PizzaPopcorn/unijs/tree/master/docs~",
   "changelogUrl": "https://github.com/PizzaPopcorn/unijs/blob/master/CHANGELOG.md",
   "author": {
     "name": "Andres Urrutia",

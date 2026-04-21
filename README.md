@@ -1,5 +1,5 @@
 # UniJS  - Web Interop
-This library will let you interact with your Unity Web / WebGL build from JS in a more efficient way than using SendMessage. It also includes a JavaScript library for using all available unity functions.
+This library will let you interact with your Unity Web / WebGL build from JS in a more efficient way than using SendMessage. It works with a [JavaScript Library](https://github.com/PizzaPopcorn/unijs-lib) that will provide you with a set of functions to interact with your game.
 
 If you are developing a web game that can't run in editor because it depends on browser stuff or you simply want to prototype fast directly in the browser, this plugin is for you.
 
@@ -97,3 +97,15 @@ This section covers how to create a dynamic instance of your Web / WebGL build i
 ```
 
 6. Create your controller JavaScript file (name it as you want) and also add it to the html page, then in that file, call `Unity.LoadInstance("url", "elementId");` where the url can be either an external url or the folder inside `wwwroot` where your build is located, and `elementId` is the `id` of the div where the game canvas will be embeded.
+
+
+## Coming Soon
+
+- **Input System Integration**: Proxy mouse, keyboard, and touch input from Unity to JS.
+- **Physics 2D Support**: Mirrors for `Rigidbody2D`, `Collider2D`, and 2D-specific events.
+- **UI & Text Support**: Better integration with `TextMeshPro` and Unity UI from the JS side.
+- **Audio System**: Control `AudioSources`, global volume, and trigger sounds from JavaScript.
+- **Navigation & Pathfinding**: Interaction with Unity's NavMesh system from JS.
+- **Camera**: Easy access to camera properties (FOV, clipping planes) and world-to-screen conversions.
+- **Particle System**: Support for `ParticleSystem` and `ParticleSystemRenderer` from JS.
+- More ways of instantiating objects and components.
